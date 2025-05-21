@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title><%= product.name %> - Szczegóły</title>
+    <title><%= product.name %> - Details</title>
     <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
     <main>
       <%- include('partials/navigation', { menuLinks: menuLinks, activeLinkPath:
       activeLinkPath, cartCount: cartCount }); %>
-      <h1 class="heading"><%= product.name %></h1>
-      <div><%= product.description %></div>
-      <button onclick="deleteProduct('<%= product.name %>')">Delete</button>
+      <div class="product-container">
+        <img
+          class="product__image"
+          src="https://source.unsplash.com/random/600x400?product"
+          alt="<%= product.name %>"
+        />
+        <div class="product__details">
+          <h1 class="product__title"><%= product.name %></h1>
+          <p class="product__description"><%= product.description %></p>
+          <p class="product__price">$<%= product.price %></p>
+          <div class="product__actions">
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="name" value="<%= product.name %>">
+              <button type="submit" class="product__button product__button--add">Add to Cart</button>
+            </form>
+            <button onclick="deleteProduct('<%= product.name %>')" class="product__button product__button--delete">Delete</button>
+          </div>
+        </div>
+      </div>
     </main>
     <script>
       function deleteProduct(name) {
